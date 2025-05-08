@@ -1,24 +1,84 @@
-body {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #f0f8ff;
-  color: #333;
-  margin: 20px;
-  line-height: 1.6;
 }
 
-h1 {
-  color: #2e8b57;
+body {
+  background-color: #f0f4f8;
+  padding: 20px;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+  max-width: 1000px;
+  margin: auto;
+}
+
+header, footer {
+  text-align: center;
+  background-color: #004aad;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
 }
 
 button {
-  background-color: #2e8b57;
+  background-color: #004aad;
   color: white;
+  font-weight: bold;
   border: none;
-  padding: 10px 20px;
-  font-size: 16px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #246b45;
+.blue-btn {
+  background-color: #007bff;
+  width: fit-content;
+}
+
+.todo-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#taskDisplayArea p {
+  background-color: #f1f1f1;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
 }
