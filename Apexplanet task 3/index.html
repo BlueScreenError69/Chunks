@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Web Project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+
+    header {
+      text-align: center;
+      padding: 10px;
+    }
+
+    .carousel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .carousel img {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .carousel button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 12px;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 50%;
+      opacity: 0.8;
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+
+    .joke-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    button.joke-button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .carousel img {
+        max-width: 100%;
+      }
+
+      .carousel button {
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Interactive & Responsive Web Page</h1>
+  </header>
+
+  <!-- Carousel Section -->
+  <section class="carousel">
+    <button class="prev">&#10094;</button>
+    <img id="carouselImage" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Carousel Image">
+    <button class="next">&#10095;</button>
+  </section>
+
+  <!-- Joke API Section -->
+  <section>
+    <h2 style="text-align:center;">Random Joke</h2>
+    <button class="joke-button" onclick="fetchJoke()">Get a Joke</button>
+    <div class="joke-box" id="jokeBox">Click the button to see a joke.</div>
+  </section>
+
+  <script>
+    // Image Carousel Logic
+    const images = [
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1494783367193-149034c05e8f?auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?auto=format&fit=crop&w=800&q=80"
+    ];
+    let currentIndex = 0;
+    const carouselImage = document.getElementById("carouselImage");
+
+    document.querySelector(".next").addEventListener("click", () => {
+      currentIndex = (currentIndex + 1) % images.length;
+      carouselImage.src = images[currentIndex];
+    });
+
+    document.querySelector(".prev").addEventListener("click", () => {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      carouselImage.src = images[currentIndex];
+    });
+
+    // Fetch Joke from Public API
+    async function fetchJoke() {
+      const response = await fetch("https://official-joke-api.appspot.com/random_joke");
+      const data = await response.json();
+      document.getElementById("jokeBox").innerText = `${data.setup} — ${data.punchline}`;
+    }
+  </script>
+</body>
+</html>
