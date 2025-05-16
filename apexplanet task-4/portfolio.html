@@ -1,0 +1,380 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Portfolio - About, Projects, Contact</title>
+<style>
+  /* Import Google Fonts */
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+  /* Reset */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    color: #000;
+    background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: inherit;
+    filter: brightness(1.1);
+    z-index: -1;
+  }
+
+  /* Navigation Styles */
+  nav {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0; left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    z-index: 10;
+  }
+
+  nav .logo {
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    cursor: default;
+    color: #000;
+  }
+
+  nav .nav-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav .nav-links button {
+    background: none;
+    border: none;
+    color: #000;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  nav .nav-links button:hover,
+  nav .nav-links button.active {
+    color: #ff6f00;
+  }
+
+  /* Container for content */
+  main {
+    max-width: 900px;
+    margin: 100px auto 50px;
+    padding: 0 20px;
+    text-shadow: 0 0 3px rgba(255 255 255 / 0.5);
+  }
+
+  /* Sections */
+  section {
+    display: none;
+    animation: fadeIn 0.6s ease forwards;
+  }
+
+  section.active {
+    display: block;
+  }
+
+  /* About Section */
+  #about h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  #about p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #000;
+  }
+
+  /* Projects Section */
+  #projects h1 {
+    font-size: 2.8rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 1.8rem;
+  }
+
+  .project-card {
+    background: rgba(255 255 255 / 0.85);
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+    color: #000;
+  }
+
+  .project-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .project-card h3 {
+    margin-bottom: 0.8rem;
+    color: #ff6f00;
+  }
+
+  .project-card p {
+    flex-grow: 1;
+    color: #222;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+  }
+
+  .project-card a {
+    align-self: flex-start;
+    text-decoration: none;
+    color: #fff;
+    background: #ff6f00;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+
+  .project-card a:hover {
+    background: #e65c00;
+  }
+
+  /* Contact Section */
+  #contact h1 {
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+
+  #contact form {
+    background: rgba(255 255 255 / 0.85);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 500px;
+    color: #000;
+  }
+
+  #contact label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  #contact input,
+  #contact textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1.5px solid #ccc;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    color: #000;
+    background: #fff;
+  }
+
+  #contact input:focus,
+  #contact textarea:focus {
+    outline: 2px solid #ff6f00;
+    border-color: #ff6f00;
+  }
+
+  #contact textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  #contact button {
+    background: #ff6f00;
+    border: none;
+    padding: 0.8rem 1.6rem;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  #contact button:hover {
+    background: #e65c00;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1.2rem 1rem;
+    font-size: 0.9rem;
+    color: #000;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    max-width: 900px;
+    margin: 0 auto 20px;
+  }
+
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px);}
+    to { opacity: 1; transform: translateY(0);}
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    nav {
+      padding: 1rem 1.5rem;
+    }
+
+    nav .nav-links {
+      gap: 1rem;
+    }
+
+    main {
+      margin: 90px 15px 40px;
+      text-shadow: none;
+    }
+
+    #about h1,
+    #projects h1,
+    #contact h1 {
+      font-size: 2.2rem;
+    }
+
+    .project-grid {
+      grid-template-columns: 1fr;
+    }
+
+    #contact form {
+      max-width: 100%;
+      padding: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">MyPortfolio</div>
+  <div class="nav-links">
+    <button data-target="about" class="active">About</button>
+    <button data-target="projects">Projects</button>
+    <button data-target="contact">Contact</button>
+  </div>
+</nav>
+
+<main>
+  <section id="about" class="active" aria-label="About Me">
+    <h1>Sankar K</h1>
+    <p>Enthusiastic and dedicated B.Tech Computer Science student with a strong foundation in software development and UI/UX design. Possessing experience in web development and chatbot systems. Adept at leveraging programming languages like C++ and Java to deliver innovative tech solutions. Recognized for strong analytical skills, effective communication, and a keen eye for detail in user interface design.</p>
+  </section>
+
+  <section id="projects" aria-label="My Projects">
+    <h1>Projects</h1>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>Portfolio Website</h3>
+        <p>A responsive portfolio website showcasing my skills, projects, and contact information with modern UI and smooth navigation.</p>
+        <a href="https://github.com/BlueScreenError69/Chunks.git" target="_blank" rel="noopener">View Code</a>
+      </div>
+      <div class="project-card">
+        <h3>Weather App</h3>
+        <p>A web app that fetches live weather data from an API and displays current conditions with a clean and user-friendly design.</p>
+        <a href="https://github.com/BlueScreenError69/Chunks.git" target="_blank" rel="noopener">View Code</a>
+      </div>
+      <div class="project-card">
+        <h3>Task Manager</h3>
+        <p>A task management app with add, edit and delete functionalities, helping users organize their daily to-dos effectively.</p>
+        <a href="https://github.com/BlueScreenError69/Chunks.git" target="_blank" rel="noopener">View Code</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-label="Contact Me">
+    <h1>Contact</h1>
+    <form id="contactForm" novalidate>
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your name" required autocomplete="name" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your email" required autocomplete="email" />
+
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Sankar K. All rights reserved.
+</footer>
+
+<script>
+  // Navigation button click to show different sections
+  const navButtons = document.querySelectorAll('nav .nav-links button');
+  const sections = document.querySelectorAll('main section');
+
+  navButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Remove active class from all buttons & sections
+      navButtons.forEach(btn => btn.classList.remove('active'));
+      sections.forEach(sec => sec.classList.remove('active'));
+
+      // Add active class to clicked button and corresponding section
+      button.classList.add('active');
+      const targetId = button.getAttribute('data-target');
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        targetSection.classList.add('active');
+      }
+      // Scroll to top smoothly on section change
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  });
+
+  // Contact form submission handling
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    // Simple validation check (HTML5 required attributes already help)
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // Normally would send form data via fetch/XHR.
+    // Here just show an alert and reset form.
+    alert('Thank you for reaching out! I will get back to you shortly.');
+    form.reset();
+  });
+</script>
+</body>
+</html>
+
+```
